@@ -12,10 +12,7 @@
         "seed": "node seeds/seed.js",
         "watch": "nodemon server.js"
     },
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/PeytonCast/Tech-Blog.git"
-    },
+    
     "keywords": [],
     "author": "",
     "license": "ISC",
