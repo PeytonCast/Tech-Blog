@@ -12,15 +12,14 @@
 
 // articleShema {
     // par1
-    // code1
     // par2
-    // code2
     // par3
-    // code3
     // par4
-    // code4
     // par5
-    // code5
+    // link1
+    // link2
+    // img1
+    // img2
 // }
 
 // commentSchema
