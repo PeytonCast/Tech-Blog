@@ -1,5 +1,5 @@
 const { Schema, model} = require('mongoose');
-const bycrypt = require('bycrypt');
+const bcrypt = require('bcrypt');
 // admin 
 // who can post and edit articles
 // and delete any comment
@@ -7,6 +7,7 @@ const bycrypt = require('bycrypt');
 // password
 // comments [commentSchema]
 // articles [articleSchema]
+const articleSchema = require('./Article')
 const adminSchema = new Schema(
     {
         username: {
