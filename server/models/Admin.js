@@ -21,7 +21,6 @@ const adminSchema = new Schema(
             required: true,
             minlength: 5,
         },
-        comments:[commentSchema],
         articles: [articleSchema]
     }
 )

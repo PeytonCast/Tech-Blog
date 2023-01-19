@@ -19,7 +19,6 @@ const userSchema = new Schema({
       required: true,
       minlength: 5,
     },
-    comments: [commentSchema],
   });
 // pre hashing password
   userSchema.pre('save', async function (next) {

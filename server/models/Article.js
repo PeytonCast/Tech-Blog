@@ -10,7 +10,7 @@
     // img2
 // }
 const { Schema } = require('mongoose');
-
+const commentSchema = require('./Comment')
 const articleSchema = new Schema(
     {
         title: {type:String},
@@ -23,8 +23,17 @@ const articleSchema = new Schema(
         link2: {type:String},
         img1: {type:String},
         img1: {type:String},
-        comments: [commentSchema]
+        comments: [commentSchema],
+        createdAt: {
+            type: Date, 
+            default: Date.now
+            // Use a getter method to format the timestamp on query
+        },
     }
-)
 
+)
+articleSchema.virtual('formatDate').get(function () {
+    return `${new Date(this.createdAt).getMonth() + 1}/${new Date(this.createdAt).getDate()}/${
+        new Date(this.createdAt).getFullYear()
+  }`;})
 module.exports = articleSchema
