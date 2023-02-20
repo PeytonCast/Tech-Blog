@@ -1,3 +1,5 @@
-// this is where i will export my 
-// type defs
-// and resolvers
+//Export typeDefs and resolvers.
+const typeDefs = require('./typeDefs');
+const resolvers = require('./resolvers');
+
+module.exports = { typeDefs, resolvers };
