@@ -8,18 +8,20 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     // write code here for admin and users!
     Query: {
-        // gets previosly existing admin
+    //    getsa previosly existing admin 
+    // (an admin is a type of user so it falls under context.user)
      getAdmin: async (parent, arg, context) => {
-         if (context.admin){
+        
+         if (context.user){
             // get everything except for the password and __v
-            const adminData = await Admin.findOne({ _id: context.admin._id }).select('-__v -password');
+            const adminData = await Admin.findOne({ _id: context.user._id }).select('-__v -password');
            return adminData 
          }
-            throw new AuthenticationError('Err 401: Please log in first.')
-        
+        throw new AuthenticationError('Err 401: Please log in first.')
      },
         //gets previosly existing user
      getUser: async (parent, arg, context) => {
+        console.log(context)
         if (context.user){
             // get everything except for the password and __v
             const userData = await User.findOne({ _id: context.user._id }).select('-__v -password');

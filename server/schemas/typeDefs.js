@@ -19,7 +19,7 @@ const typeDefs = gql`
         token: ID! 
         admin: Admin
     }
-    
+
     type Auth {
         token: ID! 
         user: User
