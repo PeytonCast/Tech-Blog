@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Admin } = require('../models');
-const auth = require('../utils/auth');
+// const auth = require('../utils/auth');
 const { signToken } = require('../utils/auth');
 
 // here i will asign my resolvers for export to typedefs
@@ -12,16 +12,17 @@ const resolvers = {
      getAdmin: async (parent, arg, context) => {
          if (context.admin){
             // get everything except for the password and __v
-            const adminData = await Admin.findOne({ _id: context.Admin._id }).select('-__v -password');
+            const adminData = await Admin.findOne({ _id: context.admin._id }).select('-__v -password');
            return adminData 
          }
-        throw new AuthenticationError('Err 401: Please log in first.')
+            throw new AuthenticationError('Err 401: Please log in first.')
+        
      },
         //gets previosly existing user
      getUser: async (parent, arg, context) => {
         if (context.user){
             // get everything except for the password and __v
-            const userData = await User.findOne({ _id: context.Admin._id }).select('-__v -password');
+            const userData = await User.findOne({ _id: context.user._id }).select('-__v -password');
             return userData
         }
         throw new AuthenticationError('Err 401: Please log in first.')
@@ -39,6 +40,8 @@ const resolvers = {
 
         // creates a new user 
         // requires a username email and password
+        // TO DO MY ADD USER IS NOT RETURNING A TOKEN
+        // 
         addUser: async (parent, {username, email, password}) => {
             const user = await User.create({ username, email, password})
             const token = signToken(user);
@@ -55,7 +58,7 @@ const resolvers = {
             }
             
             // checks password
-            const correctPw = await Admin.isCorrectPassword(password);
+            const correctPw = await admin.isCorrectPassword(password);
             
             // if password incorrect/missing throw err
             if(!correctPw){
@@ -79,7 +82,8 @@ const resolvers = {
             }
 
             // correct password logic
-            const correctPw = await User.isCorrectPassword(password);
+            // must be lower case user
+            const correctPw = await user.isCorrectPassword(password);
             
             // if password is incorrect throw this err
             if (!correctPw) {
@@ -92,6 +96,6 @@ const resolvers = {
             // then return the token and user
             return { token, user };
         },
-    }
+    },
 }
 module.exports = resolvers;

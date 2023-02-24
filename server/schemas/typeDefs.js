@@ -12,13 +12,15 @@ const typeDefs = gql`
         _id: ID!
         username: String!
         password: String!
+
     }
 
-    type AdminAuth {
+    type adminAuth {
         token: ID! 
         admin: Admin
     }
-    type UserAuth {
+    
+    type Auth {
         token: ID! 
         user: User
     }
@@ -28,11 +30,11 @@ const typeDefs = gql`
         getUser: User 
     }
 
-    type mutation{
-        userLogin(email: String!, password: String!): UserAuth
-        addUser(username: String!, email: String!, password: String!): UserAuth
-        adminLogin(username: String!, password: String!): AdminAuth
+    type Mutation{
+        userLogin(email: String!, password: String!): Auth
+        addUser(username: String!, email: String!, password: String!): Auth
+        adminLogin(username: String!, password: String!): adminAuth
         addAdmin(username: String!, password: String!): adminAuth
     }
-`
+`;
 module.exports = typeDefs

@@ -20,6 +20,7 @@ const userSchema = new Schema({
       minlength: 5,
     },
   });
+
 // pre hashing password
   userSchema.pre('save', async function (next) {
     if (this.isNew || this.isModified('password')) {
@@ -29,6 +30,7 @@ const userSchema = new Schema({
   
     next();
   });
+
 //  check password middware
   userSchema.methods.isCorrectPassword = async function (password) {
     return bcrypt.compare(password, this.password);
