@@ -42,8 +42,6 @@ const resolvers = {
 
         // creates a new user 
         // requires a username email and password
-        // TO DO MY ADD USER IS NOT RETURNING A TOKEN
-        // 
         addUser: async (parent, {username, email, password}) => {
             const user = await User.create({ username, email, password})
             const token = signToken(user);
@@ -73,6 +71,21 @@ const resolvers = {
             return { token, admin};
 
         },
+
+        // this function creates a post under an admin 
+        // it takes data from the front end and sends in the name of postData
+        createPost: async (parent, {postData}, context) => {
+            if(context.user){
+                const updateAdmin = await Admin.findOneAndUpdate(
+                    {_id : context.user._id},
+                    { $push: {articles: postData}},
+                    {new: true }
+                );
+                return updateAdmin;
+            }
+            throw new AuthenticationError('Err 401: password is incorrect.')
+        },
+
         // user login via email
         userLogin: async (parent, {email, password}) => {
             // find user by email
