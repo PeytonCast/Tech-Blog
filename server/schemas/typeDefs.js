@@ -64,7 +64,7 @@ const typeDefs = gql`
         username: String 
         text: String 
     }
-    
+
     input inputComment {
         username: String 
         text: String 
@@ -75,7 +75,8 @@ const typeDefs = gql`
         addUser(username: String!, email: String!, password: String!): Auth
         adminLogin(username: String!, password: String!): adminAuth
         addAdmin(username: String!, password: String!): adminAuth
-        createPost(postData: postInput ): Admin 
+        createPost(postData: postInput! ): Admin 
+        removePost(_id : ID!): Admin
     }
 `;
 module.exports = typeDefs

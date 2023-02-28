@@ -85,6 +85,22 @@ const resolvers = {
             }
             throw new AuthenticationError('Err 401: password is incorrect.')
         },
+        
+        removePost: async (parent, {_id}, context) => {
+            if(context.user){
+                const updateAdmin = await Admin.findOneAndUpdate(
+                    // find admin id (an admin is a type of user)
+                    { _id: context.user._id },
+                    // remove article id 
+                    { $pull: {articles: {_id}}},
+                    {new: true}
+                )
+                return updateAdmin
+            }
+            else{
+                throw new AuthenticationError('Err 401: authentication error')
+            }
+        },
 
         // user login via email
         userLogin: async (parent, {email, password}) => {
