@@ -29,6 +29,10 @@ const articleSchema = new Schema(
             default: Date.now
             // Use a getter method to format the timestamp on query
         },
+        Author: {
+            type: String,
+            required: true
+        }
     }
 
 )
@@ -36,4 +40,7 @@ articleSchema.virtual('formatDate').get(function () {
     return `${new Date(this.createdAt).getMonth() + 1}/${new Date(this.createdAt).getDate()}/${
         new Date(this.createdAt).getFullYear()
   }`;})
-module.exports = articleSchema
+
+const Articles = model('Articles', articleSchema);
+
+module.exports = Articles

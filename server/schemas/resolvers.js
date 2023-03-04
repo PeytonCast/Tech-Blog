@@ -10,6 +10,11 @@ const resolvers = {
     Query: {
     //    getsa previosly existing admin 
     // (an admin is a type of user so it falls under context.user)
+    getArticles: async (parent, arg, context) => {
+        const adminArticle = await 
+        Admin.findOne( _id: context.user._id).select('-__v -password');
+        return adminArticle
+    },
      getAdmin: async (parent, arg, context) => {
         
          if (context.user){

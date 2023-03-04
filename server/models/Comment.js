@@ -3,12 +3,18 @@
 const { Schema } = require('mongoose');
 const commentSchema = new Schema(
     {
+        commentId: {
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId()
+        },
         username: {
             type: String,
           },
 
         text: {
             type: String,
+            required: true,
+            max_length:280
           },
           
         createdAt: {
@@ -16,6 +22,8 @@ const commentSchema = new Schema(
             default: Date.now
             // Use a getter method to format the timestamp on query
         },
+        id: false,
+        _id: false
     }
 )
 commentSchema.virtual('formatDate').get(function () {

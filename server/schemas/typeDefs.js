@@ -26,13 +26,16 @@ const typeDefs = gql`
         user: User
     }
 
+
     type Query {
         getAdmin: Admin
         getUser: User 
+        getArticles: Admin
 
     }
 
     type Article {
+        _id: ID!
         title: String
         par1: String
         par2: String

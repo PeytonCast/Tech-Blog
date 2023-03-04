@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 // password
 // comments [commentSchema]
 // articles [articleSchema]
-const articleSchema = require('./Article')
+// const Articles = require('./Article')
 const adminSchema = new Schema(
     {
         username: {
@@ -21,7 +21,12 @@ const adminSchema = new Schema(
             required: true,
             minlength: 5,
         },
-        articles: [articleSchema]
+        articles: [
+          {
+            type: Schema.Types.ObjectId,
+            ref: "Articles"
+          }
+        ]
     }
 )
 // pre hashing password
