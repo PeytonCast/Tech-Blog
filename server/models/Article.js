@@ -22,7 +22,7 @@ const articleSchema = new Schema(
         link1: {type:String},
         link2: {type:String},
         img1: {type:String},
-        img1: {type:String},
+        img2: {type:String},
         comments: [commentSchema],
         createdAt: {
             type: Date, 
