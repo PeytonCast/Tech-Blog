@@ -6,9 +6,9 @@
 //  articles is its own model
 //   users can comment
 const User = require('./User');
-const Article = require('./Article');
+const Articles = require('./Article');
 const Comment = require('./Comment');
 const Admin = require('./Admin');
 
 // here we are bundling everything in our models files to be used in the future
-module.exports = { Article, User, Comment, Admin };
+module.exports = { Articles, User, Comment, Admin };

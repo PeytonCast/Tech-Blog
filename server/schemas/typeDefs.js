@@ -30,7 +30,8 @@ const typeDefs = gql`
     type Query {
         getAdmin: Admin
         getUser: User 
-        getArticles: Admin
+        getArticle: Article
+        getAllArticles: Article
 
     }
 
@@ -47,6 +48,8 @@ const typeDefs = gql`
         img1: String
         img2: String 
         comments: [Comment]
+        author: String
+
     }
 
     input postInput {

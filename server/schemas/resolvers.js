@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Admin } = require('../models');
+const { User, Admin, Articles} = require('../models');
 // const auth = require('../utils/auth');
 const { signToken } = require('../utils/auth');
 
@@ -8,13 +8,18 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     // write code here for admin and users!
     Query: {
+    getArticle: async () => {
+        const articleData = await Articles.findOne({_id: req.params._id})
+        return articleData
+    },
+    getAllArticles: async () => {
+        const articleData = await Articles.find()
+        return articleData
+    },
+    
     //    getsa previosly existing admin 
     // (an admin is a type of user so it falls under context.user)
-    getArticles: async (parent, arg, context) => {
-        const adminArticle = await 
-        Admin.findOne( _id: context.user._id).select('-__v -password');
-        return adminArticle
-    },
+    
      getAdmin: async (parent, arg, context) => {
         
          if (context.user){
@@ -24,6 +29,7 @@ const resolvers = {
          }
         throw new AuthenticationError('Err 401: Please log in first.')
      },
+
         //gets previosly existing user
      getUser: async (parent, arg, context) => {
         console.log(context)
@@ -76,36 +82,39 @@ const resolvers = {
             return { token, admin};
 
         },
+        //TODO I need to be able to post an article 
+        // i need to update the admin to hold the article's ID 
 
-        // this function creates a post under an admin 
-        // it takes data from the front end and sends in the name of postData
         createPost: async (parent, {postData}, context) => {
+            // check for login 
             if(context.user){
-                const updateAdmin = await Admin.findOneAndUpdate(
+                // 
+                const postData = await Articles.create(
                     {_id : context.user._id},
                     { $push: {articles: postData}},
                     {new: true }
                 );
                 return updateAdmin;
+                
             }
             throw new AuthenticationError('Err 401: password is incorrect.')
         },
         
-        removePost: async (parent, {_id}, context) => {
-            if(context.user){
-                const updateAdmin = await Admin.findOneAndUpdate(
-                    // find admin id (an admin is a type of user)
-                    { _id: context.user._id },
-                    // remove article id 
-                    { $pull: {articles: {_id}}},
-                    {new: true}
-                )
-                return updateAdmin
-            }
-            else{
-                throw new AuthenticationError('Err 401: authentication error')
-            }
-        },
+        // removePost: async (parent, {_id}, context) => {
+        //     if(context.user){
+        //         const updateAdmin = await Admin.findOneAndUpdate(
+        //             // find admin id (an admin is a type of user)
+        //             { _id: context.user._id },
+        //             // remove article id 
+        //             { $pull: {articles: {_id}}},
+        //             {new: true}
+        //         )
+        //         return updateAdmin
+        //     }
+        //     else{
+        //         throw new AuthenticationError('Err 401: authentication error')
+        //     }
+        // },
 
         // user login via email
         userLogin: async (parent, {email, password}) => {

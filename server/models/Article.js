@@ -9,8 +9,9 @@
     // img1
     // img2
 // }
-const { Schema } = require('mongoose');
+const { Schema, model} = require('mongoose');
 const commentSchema = require('./Comment')
+
 const articleSchema = new Schema(
     {
         title: {type:String},
@@ -32,7 +33,7 @@ const articleSchema = new Schema(
         Author: {
             type: String,
             required: true
-        }
+        },
     }
 
 )
